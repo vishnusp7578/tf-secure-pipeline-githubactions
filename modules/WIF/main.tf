@@ -29,23 +29,14 @@ resource "google_service_account" "sa" {
   display_name = "Service Account for ${var.github_repo}"
 }
 
-# Allow the Repository to impersonate this Service Account
-resource "google_service_account_iam_member" "impersonation" {
-  service_account_id = google_service_account.sa.name
-  role               = "roles/iam.workloadIdentityUser"
-  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.pool.name}/attribute.repository/${var.github_repo}"
-}
 
-# Allow the Repository to impersonate this Service Account (OIDC Handshake)
-resource "google_service_account_iam_member" "wif_user" {
+# Consolidate both roles into a single loop to ensure they are applied together
+resource "google_service_account_iam_member" "wif_roles" {
+  for_each = toset([
+    "roles/iam.workloadIdentityUser",
+    "roles/iam.serviceAccountTokenCreator"
+  ])
   service_account_id = google_service_account.sa.name
-  role               = "roles/iam.workloadIdentityUser"
-  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.pool.name}/attribute.repository/${var.github_repo}"
-}
-
-# ADD THIS: Required for Terraform GCS backend to generate access tokens
-resource "google_service_account_iam_member" "token_creator" {
-  service_account_id = google_service_account.sa.name
-  role               = "roles/iam.serviceAccountTokenCreator"
+  role               = each.value
   member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.pool.name}/attribute.repository/${var.github_repo}"
 }
