@@ -6,7 +6,7 @@ resource "google_iam_workload_identity_pool" "pool" {
 
 # Create the Workload Identity Provider for GitHub
 resource "google_iam_workload_identity_pool_provider" "github" {
-  workload_identity_pool_id          = google_iam_workload_identity_pool.pool.workload_identity_pool_id
+  workload_identity_pool_id          = google_iam_workload_identity_pool.pool.workload_identity_pool_id 
   workload_identity_pool_provider_id = "github-provider"
 
   # Banking Security: Only allow your specific repo to connect
