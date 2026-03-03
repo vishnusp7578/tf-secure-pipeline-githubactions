@@ -10,7 +10,7 @@ resource "google_iam_workload_identity_pool_provider" "github" {
   workload_identity_pool_provider_id = "github-provider"
 
   # Banking Security: Only allow your specific repo to connect
- 
+ attribute_condition = "attribute.repository == '${var.github_repo}'"
 
   attribute_mapping = {
     "google.subject"       = "assertion.sub"
