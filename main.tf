@@ -36,3 +36,21 @@ module "vpc1" {
     subnet-b = "10.0.2.0/24"
   }
 } 
+
+module "vm_a" {
+  source  = "./modules/vm"
+  name    = "vm-a"
+  zone    = var.zone_a
+  subnet  = module.vpc1.subnets["subnet-a"]
+  tags    = ["ssh","web"]
+  external_ip = true
+}
+
+module "vm_b" {
+  source  = "./modules/vm"
+  name    = "vm-b"
+  zone    = var.zone_b
+  subnet  = module.vpc1.subnets["subnet-b"]
+  tags    = ["private"]
+  external_ip = false
+}
