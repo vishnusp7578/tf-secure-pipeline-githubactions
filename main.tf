@@ -4,7 +4,7 @@ module "gh_oidc" {
   pool_display_name = "GitHub Actions Identity Pool"
   github_repo       = ""
   sa_id             = "vpc-provisioner-sa"
-}
+} 
 
 # ASSIGN PERMISSIONS (PoLP)
 # 1. Network Admin for VPC/Subnet creation
@@ -21,7 +21,13 @@ resource "google_project_iam_member" "state_admin" {
   member  = "serviceAccount:${module.gh_oidc.sa_email}"
 }
 
-#VPC 1
+resource "google_project_iam_member" "service_usage_admin" {
+  project = var.project_id
+  role    = "roles/serviceusage.serviceUsageAdmin"
+  member  = "serviceAccount:${module.gh_oidc.sa_email}"
+}
+
+/* #VPC 1
 module "vpc1" {
   source = "./modules/vpc"
 
@@ -32,4 +38,4 @@ module "vpc1" {
     subnet-a = "10.0.1.0/24"
     subnet-b = "10.0.2.0/24"
   }
-}
+} */
