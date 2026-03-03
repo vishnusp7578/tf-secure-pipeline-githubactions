@@ -13,7 +13,7 @@ resource "google_project_service" "apis" {
 
 
 module "gh_oidc" {
-  source            = "./modules/wif"
+  source            = "./modules/WIF"
   pool_id           = "ci-cd"
   pool_display_name = "GitHub Actions Identity Pool"
   github_repo       = ""
