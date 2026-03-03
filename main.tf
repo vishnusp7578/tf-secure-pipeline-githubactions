@@ -54,3 +54,10 @@ module "vm_b" {
   tags    = ["private"]
   external_ip = false
 }
+
+module "firewall" {
+  source  = "./modules/firewall"
+  network = module.vpc1.network
+
+  my_ip = var.my_ip
+}
