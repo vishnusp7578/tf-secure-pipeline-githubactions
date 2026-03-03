@@ -8,3 +8,8 @@ variable "region" {
   type        = string
   default     = "us-central1" 
 }
+
+variable "github_repo" {
+  type        = string
+  description = "The GitHub repository in the format 'username/repo-name'"
+}
