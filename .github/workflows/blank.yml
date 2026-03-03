@@ -21,6 +21,10 @@ jobs:
     steps:
       - name: "Checkout Code"
         uses: actions/checkout@v4
+      - name: "Debug GitHub Identity"
+        run: |
+          echo "GitHub is sending this repository name: ${{ github.repository }}"
+          echo "GitHub is sending this actor: ${{ github.actor }}"
 
       # 1. Authenticate to GCP using WIF (Keyless)
       - id: "auth"
