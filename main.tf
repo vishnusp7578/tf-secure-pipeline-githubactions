@@ -19,6 +19,7 @@ module "gh_oidc" {
   github_repo       = var.github_repo
   sa_id             = "vpc-provisioner-sa"
   depends_on        = [google_project_service.apis]
+  project_id        = var.project_id
 } 
 
 
