@@ -14,6 +14,7 @@ jobs:
   terraform:
     name: "Terraform Plan & Apply"
     runs-on: ubuntu-latest
+    environment: prod
     env:
       PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
 
