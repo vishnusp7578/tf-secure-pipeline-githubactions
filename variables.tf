@@ -14,3 +14,6 @@ variable "github_repo" {
   description = "The GitHub repository in the format 'username/repo-name'"
   default     = "vishnusp7578/tf-secure-pipeline-githubactions"
 }
+
+variable "zone_a" { default = "us-central1-a" }
+variable "zone_b" { default = "us-central1-b" }
