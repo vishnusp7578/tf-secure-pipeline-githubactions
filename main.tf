@@ -16,7 +16,7 @@ module "gh_oidc" {
   source            = "./modules/WIF"
   pool_id           = "ci-cd"
   pool_display_name = "GitHub Actions Identity Pool"
-  github_repo       = "var.github_repo"
+  github_repo       = var.github_repo
   sa_id             = "vpc-provisioner-sa"
   depends_on        = [google_project_service.apis]
 } 
