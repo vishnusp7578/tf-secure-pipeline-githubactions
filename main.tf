@@ -28,7 +28,8 @@ resource "google_project_iam_member" "iam_roles" {
     "roles/compute.networkAdmin",
     "roles/storage.objectAdmin",
     "roles/serviceusage.serviceUsageAdmin",
-    "roles/iam.securityAdmin"
+    "roles/iam.securityAdmin",
+     "roles/iam.workloadIdentityPoolAdmin"
   ])
   project = var.project_id
   role    = each.value
