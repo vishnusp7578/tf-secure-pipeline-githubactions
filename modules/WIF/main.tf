@@ -34,13 +34,21 @@ resource "google_service_account" "sa" {
 resource "google_service_account_iam_member" "wif_roles" {
   for_each = toset([
     "roles/iam.workloadIdentityUser",
-    "roles/iam.serviceAccountTokenCreator",
-    "roles/storage.objectAdmin",
-    "roles/serviceusage.serviceUsageAdmin",
-    "roles/compute.networkAdmin",
-    "roles/resourcemanager.projectIamAdmin"
+    "roles/iam.serviceAccountTokenCreator"
   ])
   service_account_id = google_service_account.sa.name
   role               = each.value
   member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.pool.name}/attribute.repository/${var.github_repo}"
+}
+
+resource "google_project_iam_member" "terraform_project_roles" {
+  for_each = toset([
+    "roles/serviceusage.serviceUsageAdmin",
+    "roles/compute.networkAdmin",
+    "roles/resourcemanager.projectIamAdmin"
+  ])
+
+  project = var.project_id
+  role    = each.value
+  member  = "serviceAccount:${google_service_account.sa.email}"
 }
