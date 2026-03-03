@@ -34,8 +34,7 @@ jobs:
           workload_identity_provider: "${{ secrets.GCP_WIF_PROVIDER }}"
           service_account: "${{ secrets.GCP_SA_EMAIL }}"
           audience: "https://iam.googleapis.com/${{ secrets.GCP_WIF_PROVIDER }}"
-          token_format: 'access_token'
-          access_token_lifetime: '3600s'
+
 
       # 2. Setup Terraform CLI
       - name: Setup Terraform
