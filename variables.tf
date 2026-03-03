@@ -12,4 +12,5 @@ variable "region" {
 variable "github_repo" {
   type        = string
   description = "The GitHub repository in the format 'username/repo-name'"
+  default     = "vishnusp7578/tf-secure-pipeline-githubactions"
 }
