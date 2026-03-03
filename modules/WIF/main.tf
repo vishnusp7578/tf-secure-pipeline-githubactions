@@ -1,5 +1,5 @@
 # Create the Workload Identity Pool
-resource "google_iam_workload_identity_pool" "pool" {
+resource "google_iam_workload_identity_pool" "pool" { 
   workload_identity_pool_id = var.pool_id
   display_name              = var.pool_display_name
 }
