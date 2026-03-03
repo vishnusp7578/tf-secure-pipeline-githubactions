@@ -21,20 +21,7 @@ module "gh_oidc" {
   depends_on        = [google_project_service.apis]
 } 
 
-# ASSIGN PERMISSIONS (PoLP)
-# 1. Network Admin for VPC/Subnet creation
-resource "google_project_iam_member" "iam_roles" {
-  for_each = toset([
-    "roles/compute.networkAdmin",
-    "roles/storage.objectAdmin",
-    "roles/serviceusage.serviceUsageAdmin",
-    "roles/iam.securityAdmin",
-     "roles/iam.workloadIdentityPoolAdmin"
-  ])
-  project = var.project_id
-  role    = each.value
-  member  = "serviceAccount:${module.gh_oidc.sa_email}"
-}
+
 
 
 #VPC 1
