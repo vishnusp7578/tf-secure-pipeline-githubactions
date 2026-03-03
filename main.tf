@@ -27,7 +27,8 @@ resource "google_project_iam_member" "iam_roles" {
   for_each = toset([
     "roles/compute.networkAdmin",
     "roles/storage.objectAdmin",
-    "roles/serviceusage.serviceUsageAdmin"
+    "roles/serviceusage.serviceUsageAdmin",
+    "roles/iam.securityAdmin"
   ])
   project = var.project_id
   role    = each.value
