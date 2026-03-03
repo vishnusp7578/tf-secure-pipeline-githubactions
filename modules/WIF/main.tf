@@ -34,7 +34,8 @@ resource "google_service_account" "sa" {
 resource "google_service_account_iam_member" "wif_roles" {
   for_each = toset([
     "roles/iam.workloadIdentityUser",
-    "roles/iam.serviceAccountTokenCreator"
+    "roles/iam.serviceAccountTokenCreator",
+    "roles/storage.objectViewer"
   ])
   service_account_id = google_service_account.sa.name
   role               = each.value
