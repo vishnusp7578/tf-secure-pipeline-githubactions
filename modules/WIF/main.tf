@@ -29,6 +29,11 @@ resource "google_service_account" "sa" {
   display_name = "Service Account for ${var.github_repo}"
 }
 
+resource "google_project_iam_member" "terraform_storage" {
+  project = var.project_id
+  role    = "roles/storage.objectAdmin"
+  member  = "serviceAccount:${google_service_account.sa.email}"
+}
 
 # Consolidate both roles into a single loop to ensure they are applied together
 resource "google_service_account_iam_member" "wif_roles" {
