@@ -1,0 +1,47 @@
+name: "Terraform Banking CI/CD"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  id-token: write # Mandatory for WIF Handshake
+
+jobs:
+  terraform:
+    name: "Terraform Plan & Apply"
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v4
+
+      # 1. Authenticate to GCP using WIF (Keyless)
+      - id: "auth"
+        name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v2"
+        with:
+          workload_identity_provider: "${{ secrets.GCP_WIF_PROVIDER }}"
+          service_account: "${{ secrets.GCP_SA_EMAIL }}"
+
+      # 2. Setup Terraform CLI
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # 3. Terraform Init (Connects to GCS Bucket)
+      - name: Terraform Init
+        run: terraform init
+
+      # 4. Terraform Plan
+      - name: Terraform Plan
+        run: terraform plan -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="github_repo=${{ github.repository }}" -out=tfplan
+
+      # 5. Terraform Apply (Only on merges to Main)
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve tfplan
