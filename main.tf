@@ -44,7 +44,7 @@ module "vm_a" {
   zone    = var.zone_a
   subnet  = module.vpc1.subnets["subnet-a"]
   tags    = ["ssh","web"]
-  external_ip = true
+  external_ip = true 
 }
 
 module "vm_b" {
