@@ -46,7 +46,8 @@ resource "google_project_iam_member" "terraform_project_roles" {
   for_each = toset([
     "roles/serviceusage.serviceUsageAdmin",
     "roles/compute.networkAdmin",
-    "roles/resourcemanager.projectIamAdmin"
+    "roles/resourcemanager.projectIamAdmin",
+    "roles/compute.securityAdmin"
   ])
 
   project = var.project_id
