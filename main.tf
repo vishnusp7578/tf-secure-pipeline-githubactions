@@ -25,7 +25,7 @@
 
 
 
-/* #VPC 1
+#VPC 1
 module "vpc1" {
   source = "./modules/vpc"
 
