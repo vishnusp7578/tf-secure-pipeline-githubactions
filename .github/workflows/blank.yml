@@ -36,6 +36,9 @@ jobs:
           service_account: "${{ secrets.GCP_SA_EMAIL }}"
           audience: "https://iam.googleapis.com/${{ secrets.GCP_WIF_PROVIDER }}"
 
+      - name: "Export Google Credentials"
+        run: echo "GOOGLE_APPLICATION_CREDENTIALS=${{ steps.auth.outputs.credentials_file_path }}" >> $GITHUB_ENV
+
 
       # 2. Setup Terraform CLI
       - name: Setup Terraform
@@ -47,13 +50,9 @@ jobs:
 
       # 4. Terraform Plan
       - name: Terraform Plan
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
         run: terraform plan -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="github_repo=${{ github.repository }}" -out=tfplan
 
       # 5. Terraform Apply (Only on merges to Main)
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
         run: terraform apply -auto-approve tfplan
