@@ -62,3 +62,9 @@ module "vm_b" {
   depends_on = [module.gh_oidc.iam_roles_created]
 
 }
+
+module "nat" {
+  source  = "./modules/nat"
+  network = module.vpc1.network 
+  region  = var.region
+}
