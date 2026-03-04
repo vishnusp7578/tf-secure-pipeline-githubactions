@@ -1,11 +1,11 @@
 resource "google_compute_router" "vpc1_router" {
-  name    = "vpc1-router"
+  name    = "${var.name_prefix}-router-${var.region}"
   network = module.vpc1.network
   region  = var.region
 }
 
 resource "google_compute_router_nat" "vpc1_nat" {
-  name                       = "vpc1-nat"
+  name                       = "${var.name_prefix}-router-${var.region}"
   router                     = google_compute_router.vpc1_router.name
   region                     = var.region
   nat_ip_allocate_option      = "AUTO_ONLY" # Automatically allocate external IPs
