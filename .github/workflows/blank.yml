@@ -47,6 +47,8 @@ jobs:
 
       # 4. Terraform Plan
       - name: Terraform Plan
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
         run: terraform plan -var="project_id=${{ secrets.GCP_PROJECT_ID }}" -var="github_repo=${{ github.repository }}" -out=tfplan
 
       # 5. Terraform Apply (Only on merges to Main)
