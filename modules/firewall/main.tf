@@ -1,5 +1,4 @@
 variable "network" {}
-variable "my_ip" {}
 
 resource "google_compute_firewall" "allow_internal_icmp" {
   name    = "allow-internal-icmp"
