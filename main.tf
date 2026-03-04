@@ -56,9 +56,9 @@ module "vm_b" {
   external_ip = false
 }
 
-/* module "firewall" {
+ module "firewall" {
   source  = "./modules/firewall"
   network = module.vpc1.network
 
-  my_ip = var.my_ip
-}*/
+  
+}
