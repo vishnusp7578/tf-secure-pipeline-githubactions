@@ -36,6 +36,7 @@ resource "google_service_account_iam_member" "wif_roles" {
     "roles/iam.workloadIdentityUser",
     "roles/iam.serviceAccountTokenCreator"
   ])
+  depends_on        = [google_iam_workload_identity_pool_provider.github] 
   service_account_id = google_service_account.sa.name
   role               = each.value
   member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.pool.name}/attribute.repository/${var.github_repo}"
