@@ -25,7 +25,7 @@ module "gh_oidc" {
 
 
 
-#VPC 1
+/* #VPC 1
 module "vpc1" {
   source = "./modules/vpc"
 
@@ -68,4 +68,4 @@ module "nat" {
   network = module.vpc1.network 
   region  = var.region
   subnet_name = module.vpc1.subnets["subnet-b"].name
-}
+} */
