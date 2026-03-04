@@ -2,7 +2,7 @@ variable "network" {}
 
 resource "google_compute_firewall" "allow_internal_icmp" {
   name    = "allow-internal-icmp"
-  network = module.vpc1.network
+  network = var.network
 
   allow {
     protocol = "icmp"
