@@ -1,30 +1,17 @@
 variable "network" {}
 variable "my_ip" {}
 
-resource "google_compute_firewall" "ssh" { 
-  name    = "allow-ssh"
-  network = var.network
-    allow {
+resource "google_compute_firewall" "allow_internal_icmp" {
+  name    = "allow-internal-icmp"
+  network = module.vpc1.network
+
+  allow {
     protocol = "icmp"
   }
-  allow {
-    protocol = "tcp"
-    ports    = ["22"]
-  }
 
-  source_ranges = [var.my_ip]
-  target_tags   = ["ssh"]
+  source_ranges = ["10.0.0.0/16"] 
 }
 
-resource "google_compute_firewall" "http" {
-  name    = "allow-http"
-  network = var.network
-
-  allow {
-    protocol = "tcp"
-    ports    = ["80","443"]
-  }
-}
 
 
 resource "google_compute_firewall" "ssh_iap" {
