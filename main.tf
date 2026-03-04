@@ -59,5 +59,6 @@ module "vm_b" {
  module "firewall" {
   source  = "./modules/firewall"
   network = module.vpc1.network
+  depends_on = [module.gh_oidc.iam_roles_created]
 
 }
