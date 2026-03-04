@@ -67,4 +67,5 @@ module "nat" {
   source  = "./modules/nat"
   network = module.vpc1.network 
   region  = var.region
+  subnet_name = module.vpc1.subnets["subnet-b"]
 }
