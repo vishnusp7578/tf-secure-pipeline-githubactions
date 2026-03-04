@@ -1,5 +1,5 @@
 # 1. API Enablement (Stage 1)
-resource "google_project_service" "apis" {
+/*resource "google_project_service" "apis" {
   for_each = toset([
     "iam.googleapis.com",
     "cloudresourcemanager.googleapis.com",
@@ -9,10 +9,10 @@ resource "google_project_service" "apis" {
   ])
   service            = each.key 
   disable_on_destroy = false
-}
+} */
 
 
-module "gh_oidc" {
+/* module "gh_oidc" {
   source            = "./modules/WIF"
   pool_id           = "ci-cd"
   pool_display_name = "GitHub Actions Identity Pool"
@@ -20,7 +20,7 @@ module "gh_oidc" {
   sa_id             = "vpc-provisioner-sa"
   depends_on        = [google_project_service.apis]
   project_id        = var.project_id
-} 
+} */
 
 
 
