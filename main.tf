@@ -60,5 +60,4 @@ module "vm_b" {
   source  = "./modules/firewall"
   network = module.vpc1.network
 
-  
 }
