@@ -1,4 +1,4 @@
-resource "google_compute_router" "vpc1_router" {
+resource "google_compute_router" "vpc1_router" { 
   name    = "${var.name_prefix}-router-${var.region}"
   network = var.network
   region  = var.region
