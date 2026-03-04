@@ -34,7 +34,7 @@ jobs:
           create_credentials_file: true
           workload_identity_provider: "${{ secrets.GCP_WIF_PROVIDER }}"
           service_account: "${{ secrets.GCP_SA_EMAIL }}"
-          //audience: "https://iam.googleapis.com/${{ secrets.GCP_WIF_PROVIDER }}"
+          audience: "https://iam.googleapis.com/${{ secrets.GCP_WIF_PROVIDER }}"
 
 
       # 2. Setup Terraform CLI
