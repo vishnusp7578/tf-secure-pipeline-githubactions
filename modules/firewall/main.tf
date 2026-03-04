@@ -3,6 +3,7 @@ variable "network" {}
 resource "google_compute_firewall" "allow_internal_icmp" {
   name    = "allow-internal-icmp"
   network = var.network
+  depends_on        = [google_project_iam_member.terraform_project_roles]
 
   allow {
     protocol = "icmp"
