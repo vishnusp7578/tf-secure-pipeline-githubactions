@@ -5,3 +5,7 @@ output "provider_name" {
 output "sa_email" {
   value = google_service_account.sa.email
 }
+
+output "iam_roles_created" {
+  value = true
+}
