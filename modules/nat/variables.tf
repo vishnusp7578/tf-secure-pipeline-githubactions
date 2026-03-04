@@ -4,3 +4,7 @@ variable "name_prefix" {
 }
 
 variable "region" {}
+
+variable "network" {
+  type = string
+}
